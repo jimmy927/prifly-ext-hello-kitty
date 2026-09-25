@@ -1,0 +1,214 @@
+/* Hello Kitty for prifly.
+ *
+ * Laid over prifly's own stylesheet, so everything here wins where it says the
+ * same thing. Two layers, like prifly's:
+ *
+ * 1. The tokens on :root and .dark — re-colour every surface, hairline and
+ *    accent at once. Both modes are chosen: strawberry milk by day, a plum
+ *    night with pink lights by night.
+ * 2. The dressing, by the regions prifly names with data-part: header,
+ *    sessions, main, composer, status-bar, human-message, assistant-message.
+ *
+ * The status colours (--ink-*, --viz-*, --mode-*, --kind-*) are left alone:
+ * they mean something, and pink would make a failed tool look like a cute one.
+ */
+
+@font-face {
+  font-family: "Fredoka";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("fonts/fredoka-latin.woff2") format("woff2");
+}
+
+:root {
+  --background: #fff1f6;
+  --foreground: #3a2030;
+  --card: #fffafc;
+  --card-foreground: #3a2030;
+  --popover: #fffafc;
+  --popover-foreground: #3a2030;
+  --primary: #e0457f; /* 4.6:1 against white text */
+  --primary-foreground: #ffffff;
+  --secondary: #ffe3ee;
+  --secondary-foreground: #6b2d4c;
+  --muted: #ffe8f1;
+  --muted-foreground: #7a4a63;
+  --accent: #ffdcea;
+  --accent-foreground: #3a2030;
+  --destructive: #e60033; /* the bow */
+  --destructive-foreground: #ffffff;
+  --border: #f7c4d8;
+  --input: #f4b6ce;
+  --ring: #ff6fa8;
+  --radius: 0.9rem;
+
+  --kitty-pattern: url("img/pattern-light.svg");
+  --kitty-header: linear-gradient(90deg, #ffd6e7 0%, #fff0f6 55%, #ffe1ec 100%);
+  --kitty-bubble: #ffe0ec;
+  --kitty-bubble-edge: #ff8fbd;
+}
+
+.dark {
+  --background: #22111c;
+  --foreground: #ffe9f3;
+  --card: #2f1727;
+  --card-foreground: #ffe9f3;
+  --popover: #351a2c;
+  --popover-foreground: #ffe9f3;
+  --primary: #ff7eb6;
+  --primary-foreground: #2a0f1f;
+  --secondary: #462238;
+  --secondary-foreground: #f7c8dc;
+  --muted: #3d1d31;
+  --muted-foreground: #e0aec6;
+  --accent: #4d2640;
+  --accent-foreground: #ffe9f3;
+  --destructive: #ff4d6d;
+  --destructive-foreground: #2a0f1f;
+  --border: #5a2c4a;
+  --input: #6a3558;
+  --ring: #ff7eb6;
+
+  --kitty-pattern: url("img/pattern-dark.svg");
+  --kitty-header: linear-gradient(90deg, #4a1f3c 0%, #2f1727 55%, #3d1a33 100%);
+  --kitty-bubble: #4a2140;
+  --kitty-bubble-edge: #ff7eb6;
+}
+
+body {
+  font-family: "Fredoka", system-ui, -apple-system, "Segoe UI", sans-serif;
+  background-image: var(--kitty-pattern);
+}
+
+::selection {
+  background: color-mix(in oklab, var(--primary) 35%, transparent);
+}
+
+/* Pink scrollbars, rounded like everything else. */
+* {
+  scrollbar-color: color-mix(in oklab, var(--primary) 45%, transparent) transparent;
+}
+
+/* ---- Header: a ribbon with the kitty at its end ------------------------- */
+
+[data-part="header"] {
+  position: relative;
+  background: var(--kitty-header);
+  border-bottom: 2px solid var(--border);
+  padding-right: 4.25rem;
+}
+
+[data-part="header"]::after {
+  content: "";
+  position: absolute;
+  right: 0.9rem;
+  top: 50%;
+  width: 2.6rem;
+  height: 2.2rem;
+  transform: translateY(-50%) rotate(-6deg);
+  background: url("img/kitty.svg") center / contain no-repeat;
+  pointer-events: none;
+}
+
+/* ---- Side columns: see-through, so the bows show ----------------------- */
+
+[data-part="sessions"],
+[data-part="side-panel"] {
+  background-color: color-mix(in oklab, var(--card) 72%, transparent);
+}
+
+/* ---- The transcript: the kitty keeps watch from the corner ------------- */
+
+[data-part="main"] {
+  position: relative;
+  background-color: color-mix(in oklab, var(--background) 60%, transparent);
+}
+
+[data-part="main"]::before {
+  content: "";
+  position: absolute;
+  right: 1.5rem;
+  bottom: 17rem;
+  width: 11rem;
+  height: 9rem;
+  background: url("img/kitty.svg") center / contain no-repeat;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+/* What the reader wrote: a pink bubble with a bow on its corner. */
+[data-part="human-message"] {
+  position: relative;
+  border-radius: 1.1rem 1.1rem 1.1rem 0.35rem;
+  border: 1.5px solid var(--kitty-bubble-edge);
+  background: var(--kitty-bubble);
+}
+
+[data-part="human-message"]::after {
+  content: "";
+  position: absolute;
+  top: -0.45rem;
+  right: 0.9rem;
+  width: 1.9rem;
+  height: 1.3rem;
+  transform: rotate(14deg);
+  background: url("img/bow.svg") center / contain no-repeat;
+  pointer-events: none;
+}
+
+/* What Claude wrote: signed with a small kitty before its time. */
+[data-part="assistant-message"] > span:first-child::before {
+  content: "";
+  display: inline-block;
+  width: 1.15rem;
+  height: 0.95rem;
+  background: url("img/kitty.svg") center / contain no-repeat;
+}
+
+/* ---- Composer and status bar ------------------------------------------- */
+
+[data-part="composer"] {
+  background-color: color-mix(in oklab, var(--card) 88%, transparent);
+  border-top: 2px dashed var(--border);
+}
+
+[data-part="composer"] textarea {
+  border-radius: 1rem;
+}
+
+[data-part="status-bar"] {
+  position: relative;
+  background: var(--kitty-header);
+  padding-left: 1.6rem;
+}
+
+[data-part="status-bar"]::before {
+  content: "";
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  width: 0.8rem;
+  height: 0.75rem;
+  transform: translateY(-50%);
+  background: url("img/heart.svg") center / contain no-repeat;
+}
+
+/* Buttons that carry the accent get a little bounce. */
+button {
+  transition:
+    transform 120ms ease,
+    background-color 120ms ease;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button,
+  button:active:not(:disabled) {
+    transition: none;
+    transform: none;
+  }
+}

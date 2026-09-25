@@ -1,0 +1,10 @@
+{
+  "id": "hello-kitty",
+  "name": "Hello Kitty",
+  "description": "Dresses the prifly window in pink: a strawberry-milk light theme, a plum-night dark one, bows on your messages and a kitty keeping watch.",
+  "version": "0.1.0",
+  "skin": {
+    "folder": "skin",
+    "styles": ["hello-kitty.css"]
+  }
+}
