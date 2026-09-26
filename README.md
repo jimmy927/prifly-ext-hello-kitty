@@ -1,13 +1,18 @@
 # prifly-ext-hello-kitty
 
-A skin for prifly: the window, dressed in pink.
+Two colour themes for prifly's theme picker, a font, and a page's worth of
+bows and a kitty to go with them.
 
-- **Light:** strawberry milk, with bows and hearts on the page.
-- **Dark:** a plum night with pink lights.
-- A bow on every message you write, a small kitty signing every reply, and a
-  bigger one keeping watch from the corner of the transcript.
-- Set in [Fredoka](https://github.com/hafontia/Fredoka-One) (SIL OFL 1.1,
-  `skin/fonts/OFL.txt`).
+- **Hello Kitty** — strawberry milk by day, a plum night with pink lights.
+- **Kuromi** — black and violet, and only at night.
+- Both are set in [Fredoka](https://github.com/hafontia/Fredoka-One)
+  (SIL OFL 1.1, `fonts/OFL.txt`) by default — the reader can still pick
+  another font without losing the colours.
+- A bow on every message you write, a small kitty signing every reply, a
+  bigger one keeping watch from the corner of the transcript, and pink
+  scrollbars. This part runs under either theme, or any other the reader has
+  installed: its own colours are drawn from the active theme's `--primary`
+  and `--card`, not fixed pink.
 
 Status colours — a failed tool, a warning, the permission modes — are left as
 prifly has them: they mean something.
@@ -15,27 +20,28 @@ prifly has them: they mean something.
 ## Install
 
 Put this folder in `~/.local/share/prifly/extensions/` (or install it from its
-git URL in prifly's Extensions dialog) and enable it. The skin applies at once;
-no session restarts.
+git URL in prifly's Extensions dialog) and enable it. Then, in prifly, open
+the command palette (Ctrl+K) and run **Switch theme…** to pick Hello Kitty or
+Kuromi — enabling the extension only makes them available, the same as any
+other theme; it does not switch you onto one by itself. The bows and kitty
+apply as soon as the extension is enabled, under whichever theme is active.
 
-## How a skin works
+## What this extension is made of
 
-It has no code. The manifest names a folder and the stylesheets in it:
+The manifest (`prifly-extension.json`) declares three separate things, each
+its own slot in prifly:
 
-```json
-"skin": { "folder": "skin", "styles": ["hello-kitty.css"] }
-```
+- **`themes`** — colour tokens only, for light and/or dark, checked by prifly
+  for contrast before they are drawn (`validateTheme`). One theme is active
+  at a time, exactly like choosing a theme in any other editor.
+- **`fonts`** — a family and the files that draw it. A theme may name one as
+  its default (`"font": "fredoka"`), which the reader can still override.
+- **`skin`** — the CSS in `skin/hello-kitty.css`: the bows, the kitty, the
+  ribbon header, the pink scrollbars. It sets none of prifly's own tokens and
+  no font; it only reads the active theme's tokens and dresses the regions
+  prifly names with `data-part` (`window`, `header`, `sessions`, `main`,
+  `side-panel`, `composer`, `status-bar`, `human-message`,
+  `assistant-message`). That is what lets it run under Hello Kitty, Kuromi, or
+  a theme this extension has never heard of.
 
-prifly loads each sheet after its own, from the host, so the sheet wins where
-it says the same thing and its `url()`s reach the pictures and fonts beside it.
-Only the skin's folder is served, and only while the extension is enabled.
-
-What a sheet can hold on to:
-
-- **The tokens** on `:root` (light) and `.dark` (dark): `--background`,
-  `--foreground`, `--card`, `--primary`, `--border`, `--muted`, `--accent`,
-  `--radius`, … — change them and every surface follows.
-- **The regions**, by `data-part`: `window`, `header`, `sessions`, `main`,
-  `side-panel`, `composer`, `status-bar`, `human-message`, `assistant-message`.
-
-The artwork in `skin/img` is drawn for this skin.
+The artwork in `skin/img` is drawn for this extension.

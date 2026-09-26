@@ -1,92 +1,47 @@
-/* Hello Kitty for prifly.
+/* Hello Kitty's pictures for prifly: bows on your messages, a kitty keeping
+ * watch, a ribbon header, pink scrollbars.
  *
- * Laid over prifly's own stylesheet, so everything here wins where it says the
- * same thing. Two layers, like prifly's:
+ * This is a decoration, not a theme: it sets no colour prifly's own theme
+ * owns, and no font. The colours it needs of its own are namespaced
+ * (--x-hello-kitty-*) and mostly derived from the active theme's own
+ * `--primary` and `--card`, so the same bows and ribbon suit Hello Kitty,
+ * Kuromi, or any other theme the reader picks. The two colours that are
+ * genuinely pictures — the pattern's dots — pick the light or dark artwork
+ * by the window's own `.dark` class, the same switch the theme uses.
  *
- * 1. The tokens on :root and .dark — re-colour every surface, hairline and
- *    accent at once. Both modes are chosen: strawberry milk by day, a plum
- *    night with pink lights by night.
- * 2. The dressing, by the regions prifly names with data-part: header,
- *    sessions, main, composer, status-bar, human-message, assistant-message.
+ * Everything is scoped under the data-part regions prifly names, per
+ * `[data-part="window"]` rather than `body`/`:root`/`*`, so a page a future
+ * prifly draws differently still holds this dressing to its own corners.
  *
- * The status colours (--ink-*, --viz-*, --mode-*, --kind-*) are left alone:
- * they mean something, and pink would make a failed tool look like a cute one.
+ * The status colours (--ink-*, --viz-*, --mode-*, --kind-*) are never
+ * touched here: they mean something, and pink would make a failed tool look
+ * like a cute one.
  */
 
-@font-face {
-  font-family: "Fredoka";
-  font-style: normal;
-  font-weight: 300 700;
-  font-display: swap;
-  src: url("fonts/fredoka-latin.woff2") format("woff2");
+[data-part="window"] {
+  --x-hello-kitty-pattern: url("img/pattern-light.svg");
+  --x-hello-kitty-header: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--primary) 22%, var(--card)) 0%,
+    var(--card) 55%,
+    color-mix(in oklab, var(--primary) 16%, var(--card)) 100%
+  );
+  --x-hello-kitty-bubble: color-mix(in oklab, var(--primary) 14%, var(--card));
+  --x-hello-kitty-bubble-edge: color-mix(in oklab, var(--primary) 55%, var(--card));
+
+  background-image: var(--x-hello-kitty-pattern);
 }
 
-:root {
-  --background: #fff1f6;
-  --foreground: #3a2030;
-  --card: #fffafc;
-  --card-foreground: #3a2030;
-  --popover: #fffafc;
-  --popover-foreground: #3a2030;
-  --primary: #e0457f; /* 4.6:1 against white text */
-  --primary-foreground: #ffffff;
-  --secondary: #ffe3ee;
-  --secondary-foreground: #6b2d4c;
-  --muted: #ffe8f1;
-  --muted-foreground: #7a4a63;
-  --accent: #ffdcea;
-  --accent-foreground: #3a2030;
-  --destructive: #e60033; /* the bow */
-  --destructive-foreground: #ffffff;
-  --border: #f7c4d8;
-  --input: #f4b6ce;
-  --ring: #ff6fa8;
-  --radius: 0.9rem;
-
-  --kitty-pattern: url("img/pattern-light.svg");
-  --kitty-header: linear-gradient(90deg, #ffd6e7 0%, #fff0f6 55%, #ffe1ec 100%);
-  --kitty-bubble: #ffe0ec;
-  --kitty-bubble-edge: #ff8fbd;
+.dark [data-part="window"] {
+  --x-hello-kitty-pattern: url("img/pattern-dark.svg");
 }
 
-.dark {
-  --background: #22111c;
-  --foreground: #ffe9f3;
-  --card: #2f1727;
-  --card-foreground: #ffe9f3;
-  --popover: #351a2c;
-  --popover-foreground: #ffe9f3;
-  --primary: #ff7eb6;
-  --primary-foreground: #2a0f1f;
-  --secondary: #462238;
-  --secondary-foreground: #f7c8dc;
-  --muted: #3d1d31;
-  --muted-foreground: #e0aec6;
-  --accent: #4d2640;
-  --accent-foreground: #ffe9f3;
-  --destructive: #ff4d6d;
-  --destructive-foreground: #2a0f1f;
-  --border: #5a2c4a;
-  --input: #6a3558;
-  --ring: #ff7eb6;
-
-  --kitty-pattern: url("img/pattern-dark.svg");
-  --kitty-header: linear-gradient(90deg, #4a1f3c 0%, #2f1727 55%, #3d1a33 100%);
-  --kitty-bubble: #4a2140;
-  --kitty-bubble-edge: #ff7eb6;
-}
-
-body {
-  font-family: "Fredoka", system-ui, -apple-system, "Segoe UI", sans-serif;
-  background-image: var(--kitty-pattern);
-}
-
-::selection {
+[data-part="window"] ::selection {
   background: color-mix(in oklab, var(--primary) 35%, transparent);
 }
 
-/* Pink scrollbars, rounded like everything else. */
-* {
+/* Scrollbars, rounded like everything else. */
+[data-part="window"] * {
   scrollbar-color: color-mix(in oklab, var(--primary) 45%, transparent) transparent;
 }
 
@@ -94,7 +49,7 @@ body {
 
 [data-part="header"] {
   position: relative;
-  background: var(--kitty-header);
+  background: var(--x-hello-kitty-header);
   border-bottom: 2px solid var(--border);
   padding-right: 4.25rem;
 }
@@ -141,8 +96,8 @@ body {
 [data-part="human-message"] {
   position: relative;
   border-radius: 1.1rem 1.1rem 1.1rem 0.35rem;
-  border: 1.5px solid var(--kitty-bubble-edge);
-  background: var(--kitty-bubble);
+  border: 1.5px solid var(--x-hello-kitty-bubble-edge);
+  background: var(--x-hello-kitty-bubble);
 }
 
 [data-part="human-message"]::after {
@@ -179,7 +134,7 @@ body {
 
 [data-part="status-bar"] {
   position: relative;
-  background: var(--kitty-header);
+  background: var(--x-hello-kitty-header);
   padding-left: 1.6rem;
 }
 
@@ -195,19 +150,19 @@ body {
 }
 
 /* Buttons that carry the accent get a little bounce. */
-button {
+[data-part="window"] button {
   transition:
     transform 120ms ease,
     background-color 120ms ease;
 }
 
-button:active:not(:disabled) {
+[data-part="window"] button:active:not(:disabled) {
   transform: scale(0.96);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  button,
-  button:active:not(:disabled) {
+  [data-part="window"] button,
+  [data-part="window"] button:active:not(:disabled) {
     transition: none;
     transform: none;
   }

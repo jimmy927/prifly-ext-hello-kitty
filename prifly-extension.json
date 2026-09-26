@@ -1,10 +1,99 @@
 {
   "id": "hello-kitty",
   "name": "Hello Kitty",
-  "description": "Dresses the prifly window in pink: a strawberry-milk light theme, a plum-night dark one, bows on your messages and a kitty keeping watch.",
-  "version": "0.1.0",
+  "description": "Two colour themes for prifly's picker — Hello Kitty (strawberry milk by day, a plum night with pink lights) and Kuromi (black and violet) — a Fredoka font, and bows and a kitty dressing the window. Needs prifly with the theme picker (Ctrl+K → Switch theme…).",
+  "version": "0.2.0",
   "skin": {
     "folder": "skin",
     "styles": ["hello-kitty.css"]
-  }
+  },
+  "themes": [
+    {
+      "id": "hello-kitty",
+      "name": "Hello Kitty",
+      "description": "Strawberry milk by day, a plum night with pink lights.",
+      "font": "fredoka",
+      "suggests": ["kitty-pictures"],
+      "light": {
+        "--background": "#fff8fa",
+        "--foreground": "#3a2030",
+        "--card": "#fffdfe",
+        "--card-foreground": "#3a2030",
+        "--popover": "#fffdfe",
+        "--popover-foreground": "#3a2030",
+        "--primary": "#d03a72",
+        "--primary-foreground": "#ffffff",
+        "--secondary": "#ffe3ee",
+        "--secondary-foreground": "#6b2d4c",
+        "--muted": "#ffe8f1",
+        "--muted-foreground": "#7a4a63",
+        "--accent": "#ffdcea",
+        "--accent-foreground": "#3a2030",
+        "--destructive": "#c8102e",
+        "--destructive-foreground": "#ffffff",
+        "--border": "#f7c4d8",
+        "--input": "#f4b6ce",
+        "--ring": "#ff6fa8"
+      },
+      "dark": {
+        "--background": "#22111c",
+        "--foreground": "#ffe9f3",
+        "--card": "#2f1727",
+        "--card-foreground": "#ffe9f3",
+        "--popover": "#351a2c",
+        "--popover-foreground": "#ffe9f3",
+        "--primary": "#ff7eb6",
+        "--primary-foreground": "#2a0f1f",
+        "--secondary": "#462238",
+        "--secondary-foreground": "#f7c8dc",
+        "--muted": "#3d1d31",
+        "--muted-foreground": "#e0aec6",
+        "--accent": "#4d2640",
+        "--accent-foreground": "#ffe9f3",
+        "--destructive": "#ff4d6d",
+        "--destructive-foreground": "#2a0f1f",
+        "--border": "#5a2c4a",
+        "--input": "#6a3558",
+        "--ring": "#ff7eb6"
+      }
+    },
+    {
+      "id": "kuromi",
+      "name": "Kuromi",
+      "description": "Black and violet, and only at night.",
+      "font": "fredoka",
+      "suggests": ["kitty-pictures"],
+      "dark": {
+        "--background": "#17121f",
+        "--foreground": "#f2e9ff",
+        "--card": "#201a2b",
+        "--card-foreground": "#f2e9ff",
+        "--popover": "#201a2b",
+        "--popover-foreground": "#f2e9ff",
+        "--primary": "#b58cf0",
+        "--primary-foreground": "#17121f",
+        "--secondary": "#2c2438",
+        "--secondary-foreground": "#d8c8f0",
+        "--muted": "#241e30",
+        "--muted-foreground": "#b9a8d4",
+        "--accent": "#34293f",
+        "--accent-foreground": "#f2e9ff",
+        "--destructive": "#ff5f7a",
+        "--destructive-foreground": "#17121f",
+        "--border": "#3a2f4a",
+        "--input": "#453a58",
+        "--ring": "#b58cf0"
+      }
+    }
+  ],
+  "fonts": [
+    {
+      "id": "fredoka",
+      "name": "Fredoka",
+      "description": "Rounded and friendly, the way a kitty would letter it.",
+      "family": "Fredoka",
+      "fallback": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "files": [{ "src": "fonts/fredoka-latin.woff2", "weight": "300 700" }]
+    }
+  ]
 }
