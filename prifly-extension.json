@@ -2,10 +2,11 @@
   "id": "hello-kitty",
   "name": "Hello Kitty",
   "description": "Two colour themes for prifly's picker — Hello Kitty (strawberry milk by day, a plum night with pink lights) and Kuromi (black and violet) — a Fredoka font, and bows and a kitty dressing the window. Needs prifly with the theme picker (Ctrl+K → Switch theme…).",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "skin": {
     "folder": "skin",
-    "styles": ["hello-kitty.css"]
+    "styles": ["hello-kitty.css"],
+    "with": ["hello-kitty", "kuromi"]
   },
   "themes": [
     {
